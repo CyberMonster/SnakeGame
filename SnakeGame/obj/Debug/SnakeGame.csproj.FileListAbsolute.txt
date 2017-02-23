@@ -1,0 +1,9 @@
+c:\users\олег\documents\visual studio 2017\Projects\SnakeGame\SnakeGame\obj\Debug\SnakeGame.csprojResolveAssemblyReference.cache
+c:\users\олег\documents\visual studio 2017\Projects\SnakeGame\SnakeGame\obj\Debug\SnakeGame.Form1.resources
+c:\users\олег\documents\visual studio 2017\Projects\SnakeGame\SnakeGame\obj\Debug\SnakeGame.Properties.Resources.resources
+c:\users\олег\documents\visual studio 2017\Projects\SnakeGame\SnakeGame\obj\Debug\SnakeGame.csproj.GenerateResource.Cache
+c:\users\олег\documents\visual studio 2017\Projects\SnakeGame\SnakeGame\bin\Debug\SnakeGame.exe.config
+c:\users\олег\documents\visual studio 2017\Projects\SnakeGame\SnakeGame\bin\Debug\SnakeGame.exe
+c:\users\олег\documents\visual studio 2017\Projects\SnakeGame\SnakeGame\bin\Debug\SnakeGame.pdb
+c:\users\олег\documents\visual studio 2017\Projects\SnakeGame\SnakeGame\obj\Debug\SnakeGame.exe
+c:\users\олег\documents\visual studio 2017\Projects\SnakeGame\SnakeGame\obj\Debug\SnakeGame.pdb
