@@ -27,6 +27,7 @@ namespace SnakeGame
         public List<System.Drawing.Point> Points = new List<System.Drawing.Point>();
         public List<System.Drawing.Point> Walls = new List<System.Drawing.Point>();
         public List<bool> MainSettings;
+        public List<int> KeysStack;
         System.Random RGenerator = new Random();
 
         private System.Drawing.Size MainWindowSize;
@@ -45,9 +46,11 @@ namespace SnakeGame
 
         public bool IsGameStarted = false;
 
-        public SnakeMainProcessor(int Height, int Width, System.Drawing.Color [] Colors, List<bool> Settings, System.Drawing.Font TextFont, string FilePath = @"C:\Users\Олег\Documents\Visual Studio 2017\Projects\SnakeGame\Anton.bm")
+        public SnakeMainProcessor(int Height, int Width, int Multipiller, System.Drawing.Color [] Colors, List<bool> Settings, System.Drawing.Font TextFont, string FilePath = @"C:\Users\Олег\Documents\Visual Studio 2017\Projects\SnakeGame\Anton.bmp")
         {
+            this.KeysStack = new List<int>();
             this.MainWindowSize = new Size(Width, Height);
+            this.Multipiller = Multipiller;
             if (TextFont == null)
             {
                 TextFont = new System.Drawing.Font(FontFamily.GenericSerif, 16, FontStyle.Regular);
@@ -98,6 +101,7 @@ namespace SnakeGame
             this.MovePosition = 2;
             this.Points.Clear();
             this.Walls.Clear();
+            this.KeysStack.Clear();
             //this.MainWindowSize = new Size(Width, Height);
             if (this.LevelPath != "" && System.IO.File.Exists(this.LevelPath))
             {
@@ -150,18 +154,18 @@ namespace SnakeGame
                 }
                 Graphic.FillRectangle(this.BackGround, this.BorderSize, this.BorderSize, this.Width + 1, this.Height + 1);
 
-                this.SDraw(Graphic, this.MainSettings[7], this.MainSettings[6], this.FoodPen, this.Food.X * this.Multipiller + this.BorderSize + 2, this.Food.Y * this.Multipiller + this.BorderSize + 2, this.Multipiller - 4, this.Multipiller - 4);
+                this.SDraw(Graphic, this.MainSettings[13] || this.MainSettings[7], this.MainSettings[6] || this.MainSettings[14], this.FoodPen, this.Food.X * this.Multipiller + this.BorderSize + 2, this.Food.Y * this.Multipiller + this.BorderSize + 2, this.Multipiller - 4, this.Multipiller - 4);
 
                 foreach (var Item in this.Points.Take(this.Points.Count() - 1))
                 {
-                    this.SDraw(Graphic, this.MainSettings[7], this.MainSettings[3], this.SnakePen, this.BorderSize + Item.X * this.Multipiller + 1, this.BorderSize + Item.Y * this.Multipiller + 1, this.Multipiller - 2, this.Multipiller - 2);
+                    this.SDraw(Graphic, this.MainSettings[10] || this.MainSettings[7], this.MainSettings[3] || this.MainSettings[14], this.SnakePen, this.BorderSize + Item.X * this.Multipiller + 1, this.BorderSize + Item.Y * this.Multipiller + 1, this.Multipiller - 2, this.Multipiller - 2);
                 }
 
-                this.SDraw(Graphic, this.MainSettings[7], this.MainSettings[4], this.SnakeHeadPen, this.BorderSize + this.Points.Last().X * this.Multipiller + 1, this.BorderSize + this.Points.Last().Y * this.Multipiller + 1, this.Multipiller - 2, this.Multipiller - 2);
+                this.SDraw(Graphic, this.MainSettings[11] || this.MainSettings[7], this.MainSettings[4] || this.MainSettings[14], this.SnakeHeadPen, this.BorderSize + this.Points.Last().X * this.Multipiller + 1, this.BorderSize + this.Points.Last().Y * this.Multipiller + 1, this.Multipiller - 2, this.Multipiller - 2);
 
                 foreach (var Item in this.Walls)
                 {
-                    this.SDraw(Graphic, this.MainSettings[7], this.MainSettings[5], this.WallPen, this.BorderSize + Item.X * this.Multipiller + 1, this.BorderSize + Item.Y * this.Multipiller + 1, this.Multipiller - 2, this.Multipiller - 2);
+                    this.SDraw(Graphic, this.MainSettings[12] || this.MainSettings[7], this.MainSettings[5] || this.MainSettings[14], this.WallPen, this.BorderSize + Item.X * this.Multipiller + 1, this.BorderSize + Item.Y * this.Multipiller + 1, this.Multipiller - 2, this.Multipiller - 2);
                 }
             }
             return this.LevelBMP;
@@ -219,12 +223,29 @@ namespace SnakeGame
         }
         public void GenerateFood()
         {
-            do
+            int Counter = 0;
+            for (int i = 0; i <= this.Width / Multipiller; ++i)
             {
-                this.Food.X = RGenerator.Next(0, this.Width / Multipiller);
-                this.Food.Y = RGenerator.Next(0, this.Height / Multipiller);
+                for (int j = 0; j <= this.Height / Multipiller; ++j)
+                {
+                    Counter += this.Points.Where(x => x.X == i && x.Y == j).Count() + this.Walls.Where(x => x.X == i && x.Y == j).Count();
+                }
             }
-            while (this.Points.Where(x => x == this.Food).Count() != 0 || this.Walls.Where(x => x == this.Food).Count() != 0);
+
+            if (Counter >= (this.Width / Multipiller) * (this.Height / Multipiller))
+            {
+                this.MessageLooseContext(this.Height, this.Width);
+                return;
+            }
+            else
+            {
+                do
+                {
+                    this.Food.X = RGenerator.Next(0, this.Width / Multipiller);
+                    this.Food.Y = RGenerator.Next(0, this.Height / Multipiller);
+                }
+                while (this.Points.Where(x => x == this.Food).Count() != 0 || this.Walls.Where(x => x == this.Food).Count() != 0);
+            }
         }
         public void MoveVector(int Key)
         {

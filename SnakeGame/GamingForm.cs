@@ -18,7 +18,7 @@ namespace SnakeGame
         private bool CanMove = true;
         private Control KeyDownControl;
         private ProgramThreads ThreadsManager;
-        public GamingForm(ref ProgramThreads ThreadStack, List<System.Drawing.Color> Colors, List<bool> Settings, System.Drawing.Font GameFont, int Interval)//int Interval, string MapPath, bool Mode, Color[] Colors)
+        public GamingForm(ref ProgramThreads ThreadStack, List<System.Drawing.Color> Colors, List<bool> Settings, int Multipiller, System.Drawing.Font GameFont, int Interval, string Path)//int Interval, string MapPath, bool Mode, Color[] Colors)
         {
             this.ThreadsManager = ThreadStack;
             InitializeComponent();
@@ -31,7 +31,7 @@ namespace SnakeGame
             this.GlobalTimer.Interval = Interval;
             this.pictureBox1.Focus();
             this.GlobalTimer.Stop();
-            this.GameField = new SnakeMainProcessor(this.pictureBox1.Height, this.pictureBox1.Width, Colors.ToArray(), Settings, GameFont);
+            this.GameField = new SnakeMainProcessor(this.pictureBox1.Height, this.pictureBox1.Width, Multipiller, Colors.ToArray(), Settings, GameFont, Path);
             this.pictureBox1.Image = this.GameField.MessageStartContext(this.pictureBox1.Height, this.pictureBox1.Width);
             this.GlobalTimer.Start();
         }
@@ -41,7 +41,17 @@ namespace SnakeGame
             if (this.GameField.IsGameStarted)
             {
                 this.CanMove = true;
-                //KeyGenerator();
+                if (this.GameField.KeysStack.Count() != 0)
+                {
+                    this.GameField.MoveVector(this.GameField.KeysStack.First());
+                    this.GameField.KeysStack.RemoveAt(0);
+                    if (this.GameField.KeysStack.Count() != 0)
+                    {
+                        this.CanMove = false;
+                    }
+                }
+                if (this.GameField.MainSettings[15])
+                KeyGenerator();
                 this.pictureBox1.SuspendLayout();
                 this.pictureBox1.Image.Dispose();
                 this.pictureBox1.Image = this.GameField.Tick();
@@ -52,7 +62,6 @@ namespace SnakeGame
 
         private void KeyDownEventHandler(object sender, KeyEventArgs e)
         {
-            
             if (e.KeyCode == Keys.P)
             {
                 this.pictureBox1.SuspendLayout();
@@ -66,7 +75,14 @@ namespace SnakeGame
                 if (CanMove)
                 {
                     this.CanMove = false;
-                    this.GameField.MoveVector(e.KeyValue - 74);
+                    this.GameField.KeysStack.Add(e.KeyValue - 74);
+                }
+                else
+                {
+                    if (this.GameField.MainSettings[2])
+                    {
+                        this.GameField.KeysStack.Add(e.KeyValue - 74);
+                    }
                 }
                 this.GameField.IsGameStarted = true;
             }
