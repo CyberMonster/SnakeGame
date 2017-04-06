@@ -24,7 +24,7 @@ namespace SnakeGame
             InitializeComponent();
             Rnd_Gen = new Random();
             this.KeyDownControl = new Control();
-            this.KeyDownControl.KeyDown += KeyDownEventHandler;
+            this.KeyDownControl.PreviewKeyDown += PreviewKeyDownEventHandler;
             this.pictureBox1.Controls.Add(this.KeyDownControl);
             this.GlobalTimer = new Timer();
             this.GlobalTimer.Tick += GlobalTimerElapse;
@@ -51,7 +51,9 @@ namespace SnakeGame
                     }
                 }
                 if (this.GameField.MainSettings[15])
-                KeyGenerator();
+                {
+                    KeyGenerator();
+                }
                 this.pictureBox1.SuspendLayout();
                 this.pictureBox1.Image.Dispose();
                 this.pictureBox1.Image = this.GameField.Tick();
@@ -60,7 +62,7 @@ namespace SnakeGame
             }
         }
 
-        private void KeyDownEventHandler(object sender, KeyEventArgs e)
+        private void PreviewKeyDownEventHandler(object sender, PreviewKeyDownEventArgs e)
         {
             if (e.KeyCode == Keys.P)
             {

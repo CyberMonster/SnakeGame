@@ -8,3 +8,12 @@ c:\users\олег\documents\visual studio 2017\Projects\SnakeGame\SnakeGame\obj\
 c:\users\олег\documents\visual studio 2017\Projects\SnakeGame\SnakeGame\obj\Debug\SnakeGame.pdb
 C:\Users\Олег\Documents\Visual Studio 2017\Projects\SnakeGame\SnakeGame\obj\Debug\SnakeGame.SettingsForm.resources
 C:\Users\Олег\Documents\Visual Studio 2017\Projects\SnakeGame\SnakeGame\obj\Debug\SnakeGame.GamingForm.resources
+C:\Users\Олег\Documents\GitHub\SnakeGame\SnakeGame\bin\Debug\SnakeGame.exe.config
+C:\Users\Олег\Documents\GitHub\SnakeGame\SnakeGame\bin\Debug\SnakeGame.exe
+C:\Users\Олег\Documents\GitHub\SnakeGame\SnakeGame\bin\Debug\SnakeGame.pdb
+C:\Users\Олег\Documents\GitHub\SnakeGame\SnakeGame\obj\Debug\SnakeGame.GamingForm.resources
+C:\Users\Олег\Documents\GitHub\SnakeGame\SnakeGame\obj\Debug\SnakeGame.Properties.Resources.resources
+C:\Users\Олег\Documents\GitHub\SnakeGame\SnakeGame\obj\Debug\SnakeGame.SettingsForm.resources
+C:\Users\Олег\Documents\GitHub\SnakeGame\SnakeGame\obj\Debug\SnakeGame.csproj.GenerateResource.Cache
+C:\Users\Олег\Documents\GitHub\SnakeGame\SnakeGame\obj\Debug\SnakeGame.exe
+C:\Users\Олег\Documents\GitHub\SnakeGame\SnakeGame\obj\Debug\SnakeGame.pdb
